@@ -29,9 +29,9 @@ const anecSlice = createSlice({
     createAnec(state, action) {
       const content = action.payload
       const newAnec = asObject(content)
-      state.push({
+      state.push(
         newAnec
-      })
+      )
     },
     addVote(state, action) {
       const id = action.payload

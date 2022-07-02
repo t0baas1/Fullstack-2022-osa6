@@ -1,20 +1,16 @@
 import {useDispatch} from 'react-redux'
 import { createAnec } from '../reducers/anecdoteReducer'
-import { createNotif } from '../reducers/notificationReducer'
-import { deleteNotif } from '../reducers/notificationReducer'
+import { setNotif } from '../reducers/notificationReducer'
 
 const NewAnec = (props) => {
     const dispatch = useDispatch()
 
-    const addAnec = (event) => {
+    const addAnec = async (event) => {
         event.preventDefault();
         const content = event.target.anec.value
         event.target.anec.value = ''
         dispatch(createAnec(content))
-        dispatch(createNotif(content))
-        setTimeout(() => {
-            dispatch(deleteNotif())
-        }, 5000);
+        dispatch(setNotif(`new anecdote '${content}'`,5))
     }
 
     return (

@@ -5,13 +5,8 @@ const notificationSlice = createSlice({
     name: 'notification',
     initialState: null,
     reducers: {
-        voteNotif(state, action) {
-            const notification = `you voted '${action.payload.content}'`
-            return notification
-        },
-        createNotif(state, action) {
-            const notification = `created an anecdote: '${action.payload}'`
-            return notification
+        setNotification(state, action) {
+            return action.payload
         },
         deleteNotif(state, action) {
             return null
@@ -20,5 +15,16 @@ const notificationSlice = createSlice({
 })
 
 
-export const { voteNotif, deleteNotif, createNotif } = notificationSlice.actions
+export const { setNotification, deleteNotif } = notificationSlice.actions
+
+export const setNotif = (content, time) => {
+    return async dispatch => {
+        dispatch(setNotification(content))
+        let timeout = setTimeout(() => {
+            dispatch(deleteNotif())
+        }, time*1000)
+        clearTimeout(timeout-1)
+    }
+}
+
 export default notificationSlice.reducer
